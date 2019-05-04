@@ -13,8 +13,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter("/admin/*")
-public class AdminFilter implements Filter {
+@WebFilter("/seller/*")
+public class SellerFilter implements Filter {
     private static final Logger logger = Logger.getLogger(AdminFilter.class);
     private UserDao userDao;
 
@@ -28,11 +28,11 @@ public class AdminFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String role = (String) request.getSession().getAttribute("role");
         String login = (String) request.getSession().getAttribute("login");
-        if (role.equals("admin")) {
-            logger.info("AdminAccess Granted to" + login);
+        if (role.equals("seller")) {
+            logger.info("SellerAccess Granted to" + login);
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            logger.warn("AdminAccess Denied to" + login);
+            logger.warn("SellerAccess Denied to" + login);
             request.setAttribute("error", "Access Denied");
             request.setAttribute("ref", "/index.jsp");
         }
